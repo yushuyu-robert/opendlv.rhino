@@ -27,13 +27,13 @@ services:
         - .:/opt/opendlv.data
         command: "/opt/od4/bin/odsupercomponent --cid=${CID} --verbose=1 --configuration=/opt/opendlv.data/configuration"
 
-    # micro service for proxy-rhino-can.
-    proxy-rhino-can:
+    # micro service for sim-rhino-can.
+    sim-rhino-can:
         build: .
         network_mode: "host"
         depends_on:
             - odsupercomponent
-        command: "/opt/opendlv.core/bin/opendlv-proxy-rhino-can --cid=${CID} --freq=100"
+        command: "/opt/opendlv.rhino/bin/opendlv-sim-rhino-can --cid=${CID} --freq=100"
 
 
     # micro service for PS3 controller.
@@ -44,6 +44,6 @@ services:
         - "/dev/input/js0:/dev/input/js0"
         depends_on:
             - odsupercomponent
-            - proxy-rhino-can
+            - sim-rhino-can
         command: "/opt/opendlv.core/bin/opendlv-core-system-ps3controller --cid=${CID} --freq=100"
 
