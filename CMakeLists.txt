@@ -151,15 +151,15 @@ ExternalProject_Add (proxy-rhino
   TEST_BEFORE_INSTALL 1
   INSTALL_COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/proxy-rhino-prefix/src/proxy-rhino-build --target install COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/proxy-rhino-prefix/src/proxy-rhino-build --target ${MAKE_PACKAGE})
 
-#ExternalProject_Add (virtual-rhino
-#  DEPENDS libodvdrhino librhinogw
-#  DOWNLOAD_COMMAND ""
-#  UPDATE_COMMAND ""
-#  SOURCE_DIR "${CMAKE_SOURCE_DIR}/code/virtual-rhino"
-#  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}"
-#  CMAKE_ARGS "-DOPENDAVINCI_DIR=${OPENDAVINCI_DIR}"
-#  CMAKE_ARGS "-DODVDVEHICLE_DIR=${ODVDVEHICLE_DIR}"
-#  CMAKE_ARGS "-DODVDOPENDLVDATA_DIR=${ODVDOPENDLVDATA_DIR}"
-#  CMAKE_ARGS "-DCXXTEST_INCLUDE_DIR=${CXXTEST_INCLUDE_DIR}"
-#  TEST_BEFORE_INSTALL 1
-#  INSTALL_COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/virtual-rhino-prefix/src/virtual-rhino-build --target install COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/virtual-rhino-prefix/src/virtual-rhino-build --target ${MAKE_PACKAGE})
+ExternalProject_Add (sim-rhino
+  DEPENDS libodvdrhino librhinogw
+  DOWNLOAD_COMMAND ""
+  UPDATE_COMMAND ""
+  SOURCE_DIR "${CMAKE_SOURCE_DIR}/code/sim-rhino"
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}"
+  CMAKE_ARGS "-DOPENDAVINCI_DIR=${OPENDAVINCI_DIR}"
+  CMAKE_ARGS "-DODVDVEHICLE_DIR=${ODVDVEHICLE_DIR}"
+  CMAKE_ARGS "-DODVDOPENDLVDATA_DIR=${ODVDOPENDLVDATA_DIR}"
+  CMAKE_ARGS "-DCXXTEST_INCLUDE_DIR=${CXXTEST_INCLUDE_DIR}"
+  TEST_BEFORE_INSTALL 1
+  INSTALL_COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/sim-rhino-prefix/src/sim-rhino-build --target install COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_BINARY_DIR}/sim-rhino-prefix/src/sim-rhino-build --target ${MAKE_PACKAGE})

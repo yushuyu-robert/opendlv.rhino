@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2016 Christian Berger
+ * sim-rhino-can - Simulated Rhino CAN gateway.
+ * Copyright (C) 2017 Chalmers Revere
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,23 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PROXY_RHINO_CAN_TESTSUITE_H
-#define PROXY_RHINO_CAN_TESTSUITE_H
+#include "Can.h"
 
-#include "cxxtest/TestSuite.h"
-
-// Include local header files.
-#include "../include/Can.h"
-
-class CanTest : public CxxTest::TestSuite {
-   public:
-    void setUp() {}
-
-    void tearDown() {}
-
-    void testApplication() {
-        TS_ASSERT(true);
-    }
-};
-
-#endif
+int32_t main(int32_t argc, char **argv) {
+    opendlv::sim::rhino::Can can(argc, argv);
+    return can.runModule();
+}

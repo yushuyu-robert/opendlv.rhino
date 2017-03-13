@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Christian Berger
+ * Copyright (C) 2017 Chalmers Revere
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,23 +16,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PROXY_RHINO_CAN_TESTSUITE_H
-#define PROXY_RHINO_CAN_TESTSUITE_H
+#include "Body.h"
 
-#include "cxxtest/TestSuite.h"
+namespace opendlv {
+namespace sim {
+namespace rhino {
 
-// Include local header files.
-#include "../include/Can.h"
+Body::Body()
+{
+}
 
-class CanTest : public CxxTest::TestSuite {
-   public:
-    void setUp() {}
+Body::~Body()
+{
+}
 
-    void tearDown() {}
+// Example
+//double Body::GetX() const
+//{
+//  return m_x;
+//}
 
-    void testApplication() {
-        TS_ASSERT(true);
-    }
-};
+void Body::Update(float a_deltaTime)
+{
+  (void) a_deltaTime; // Remove later.
+ // Update the state of body...
 
-#endif
+  // Example
+//   m_x = m_x + xdot * a_deltaTime;
+//   m_u = m_u + udot * a_deltaTime;
+}
+
+}
+}
+} 
