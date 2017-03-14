@@ -17,6 +17,9 @@
  */
 
 #include "Body.h"
+#include <iostream>
+
+using namespace std;
 
 namespace opendlv {
 namespace sim {
@@ -38,7 +41,10 @@ Body::~Body()
 
 void Body::Update(float a_deltaTime)
 {
-  (void) a_deltaTime; // Remove later.
+  cout << "Hello" << endl;
+  (void) a_deltaTime;
+
+  // Remove later.
  // Update the state of body...
 
   // Example
@@ -46,6 +52,13 @@ void Body::Update(float a_deltaTime)
 //   m_u = m_u + udot * a_deltaTime;
 }
 
+//I tried with another function
+
+void Body::Test()
+{
+  cout << "Hello1" << endl; 
+}
+
 }
 }
-} 
+}

@@ -38,11 +38,41 @@ class Body {
 // Example
 //    double GetX() const;
     void Update(float);
-
+    void Test();
    private:
 // Example
 //    double m_x;
 //    double m_u;
+
+//Parameters for Rhino
+// m_cg_to_firstaxle(1.68f);
+// m_cg_to_secondaxle(1.715f);
+// m_cornering_stiffness_front(278631.0f);
+// m_cornering_stiffness_rear(155628.0);
+// m_inertia(41340.0f);
+// m_mass(9840.0f);
+// m_steering_ratio(15.6f);
+//
+// float const a = m_cg_to_firstaxle;
+// float const b = m_cg_to_secondaxle;
+// float const c_f = m_cornering_stiffness_front;
+// float const c_r = m_cornering_stiffness_rear;
+//
+// float psi = m_heading;
+// float x = m_lonigtudinal_position;
+// float y = m_lateral_position;
+// float vx = longitudinal_velocity;
+// float vy = lateral velocity;
+// float r = yaw_rate;
+// float delta = a_swa/m_steering_ratio;
+//
+// double motion_angle_front = (-a*r - vy)/vx;
+// double motion_angle_rear = (b*r - vy)/vx;
+//
+// double rdot  = (-b*c_r*motion_angle_rear + a*c_f*motion_angle_front + a*c_f*delta)/m_inertia;
+//
+// double vydot = (c_r*motion_angle_rear + c_f*motion_angle_front + c_f*delta)/m_mass - u*r;
+
 };
 
 }

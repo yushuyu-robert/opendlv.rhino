@@ -35,7 +35,7 @@ Vehicle::Vehicle()
 Vehicle::~Vehicle()
 {
 }
-    
+
 opendlv::proxy::rhino::ManualControl Vehicle::GetManualControl() const
 {
   double accelerationPedalPosition = 0.0;
@@ -124,7 +124,7 @@ void Vehicle::SetAccelerationRequest(
 {
   bool enableRequest = a_accelerationRequest.getEnableRequest();
   if (enableRequest) {
-    double accelerationPedalPosition = 
+    double accelerationPedalPosition =
       a_accelerationRequest.getAccelerationPedalPosition();
 
     (void) accelerationPedalPosition; // Since not used.. Remove later.
@@ -166,4 +166,4 @@ void Vehicle::Update(float a_deltaTime)
 
 }
 }
-} 
+}
