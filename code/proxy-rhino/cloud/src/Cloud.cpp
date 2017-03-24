@@ -69,7 +69,7 @@ Cloud::Cloud(const int &argc, char **argv)
     
     m_outbound["200-1"] = "0.0";
     m_outbound["200-2"] = "0.0";
-    m_outbound["200-3"] = "0.0";
+    m_outbound["200-3"] = "0";
 }
 
 Cloud::~Cloud() 
