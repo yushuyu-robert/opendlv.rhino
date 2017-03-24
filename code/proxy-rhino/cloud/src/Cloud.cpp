@@ -161,6 +161,7 @@ odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode Cloud::body()
         getString += "&";
       }
       getString += entry.first + "=" + entry.second;
+      first = false;
     }
 
     std::string http = "GET /cloud/upload.php?" + getString + " HTTP/1.1\nhost: opendlv.org\n\n";
