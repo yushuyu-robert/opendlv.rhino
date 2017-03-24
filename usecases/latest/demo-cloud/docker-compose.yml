@@ -31,7 +31,7 @@ services:
     proxy-rhino-can:
         build: .
         network_mode: "host"
-        priviliged: true
+        privileged: true
         depends_on:
             - odsupercomponent
         command: "/opt/opendlv.rhino/bin/opendlv-proxy-rhino-can --cid=${CID} --freq=100"

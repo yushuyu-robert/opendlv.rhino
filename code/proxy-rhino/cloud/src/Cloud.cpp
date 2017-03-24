@@ -40,6 +40,36 @@ Cloud::Cloud(const int &argc, char **argv)
   , m_hostname()
   , m_port()
 {
+    m_outbound["19-1"] = "57.70916";
+    m_outbound["19-2"] = "11.94781";
+    
+    m_outbound["191-1"] = "0.0";
+    m_outbound["191-2"] = "0.0";
+    m_outbound["191-3"] = "0.0";
+    
+    m_outbound["195-1"] = "0.0";
+    m_outbound["195-2"] = "0.0";
+    m_outbound["195-3"] = "0.0";
+    
+    m_outbound["196-1"] = "0.0";
+    
+    m_outbound["197-1"] = "0.0";
+    m_outbound["197-2"] = "0.0";
+    m_outbound["197-3"] = "0.0";
+    
+    m_outbound["198-1"] = "0.0";
+    m_outbound["198-2"] = "0.0";
+    m_outbound["198-3"] = "0.0";
+    m_outbound["198-4"] = "0.0";
+    m_outbound["198-5"] = "0.0";
+    m_outbound["198-6"] = "0.0";
+    
+    m_outbound["199-1"] = "0.0";
+    m_outbound["199-2"] = "0.0";
+    
+    m_outbound["200-1"] = "0.0";
+    m_outbound["200-2"] = "0.0";
+    m_outbound["200-3"] = "0.0";
 }
 
 Cloud::~Cloud() 
