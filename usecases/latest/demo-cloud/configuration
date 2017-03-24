@@ -79,3 +79,10 @@ proxy-rhino-can.enableActuationBrake = 1
 proxy-rhino-can.enableActuationSteering = 1
 proxy-rhino-can.enableActuationThrottle = 1
 
+proxy-rhino-cloud.hostname = 91.106.193.119
+proxy-rhino-cloud.port = 80
+
+proxy-trimble.ip = 10.40.40.13
+proxy-trimble.port = 9999
+proxy-trimble.debug = 0
+

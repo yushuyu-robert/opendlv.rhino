@@ -23,6 +23,7 @@
 #include <memory>
 #include <string>
 
+#include <opendavinci/odcore/base/Mutex.h>
 #include <opendavinci/odcore/base/module/TimeTriggeredConferenceClientModule.h>
 #include <opendavinci/odcore/io/tcp/TCPConnection.h>
 
@@ -38,14 +39,15 @@ class Cloud : public odcore::base::module::TimeTriggeredConferenceClientModule {
     virtual ~Cloud();
 
    private:
-    void updateValues(std::string const &);
     void nextContainer(odcore::data::Container &);
     virtual void setUp();
     virtual void tearDown();
     virtual odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode body();
 
+    odcore::base::Mutex m_mutex;
     std::map<std::string, std::string> m_outbound;
-    std::shared_ptr<odcore::io::tcp::TCPConnection> m_connection;
+    std::string m_hostname;
+    uint32_t m_port;
 };
 
 }
