@@ -1,5 +1,5 @@
-# Dockerfile - Dockerfile to run OpenDLV software.
-# Copyright (C) 2016 Christian Berger
+# Dockerfile to create an image for building and running OpenDLV Rhino.
+# Copyright (C) 2017 Christian Berger
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -14,8 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
+#
 # Date: 2017-04-07
+FROM BASEIMAGE
+MAINTAINER Christian Berger "christian.berger@gu.se"
 
-FROM seresearch/opendlv-rhino-on-opendlv-on-opendlv-core-on-opendavinci-on-base:latest
+# Add binaries.
+ADD opt.nonDev /opt
+
+# Change owner for binaries.
+RUN chown -R 1000:1000 /opt/opendlv.rhino
+
+# Environment parameters to allow GUIs.
+ENV QT_X11_NO_MITSHM=1
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/opendlv.rhino/lib
+WORKDIR /opt/opendlv.rhino/bin
 
