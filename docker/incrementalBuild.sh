@@ -35,13 +35,6 @@ CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_
 
 CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4 && make test && make install
 
-cd ..
-
-mkdir -p build.system && cd build.system
-CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_INCLUDE_DIR=/opt/opendlv.rhino.sources/thirdparty/cxxtest -D OPENDAVINCI_DIR=/opt/od4 -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources/code/system-rhino
-
-CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4 && make test && make install
-
 EOF
 
 chmod 755 /opt/opendlv.rhino.build/build.sh
