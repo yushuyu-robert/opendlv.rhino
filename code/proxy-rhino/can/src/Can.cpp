@@ -276,8 +276,8 @@ void Can::nextGenericCANMessage(const automotive::GenericCANMessage &gcm)
         // Generate GroundSpeedReading message
         if (c.getDataType() == opendlv::proxy::rhino::Propulsion::ID()) {
           auto propulsion = c.getData<opendlv::proxy::rhino::Propulsion>();
-          double groundSpeedKph = static_cast<double>(propulsion.getPropulsionShaftVehicleSpeed());
-          double groundSpeed = groundSpeedKph / 3.6;
+          const double groundSpeedKph = static_cast<double>(propulsion.getPropulsionShaftVehicleSpeed());
+          const double groundSpeed = groundSpeedKph / 3.6;
 
           opendlv::proxy::GroundSpeedReading groundSpeedReading;
           groundSpeedReading.setGroundSpeed(groundSpeed);
