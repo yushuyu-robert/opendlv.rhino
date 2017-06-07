@@ -17,5 +17,5 @@
 
 # Date: 2017-03-29
 
-FROM chalmersrevere/opendlv-rhino-on-opendlv-on-opendlv-core-on-opendavinci-on-base:latest
+FROM seresearch/opendlv-rhino-on-opendlv-on-opendlv-core-on-opendavinci-on-base:latest
 
