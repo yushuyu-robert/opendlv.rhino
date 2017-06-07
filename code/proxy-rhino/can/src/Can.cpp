@@ -29,6 +29,9 @@
 #include <opendavinci/odcore/strings/StringToolbox.h>
 #include <opendavinci/odtools/recorder/Recorder.h>
 
+#include <odvdopendlvstandardmessageset/GeneratedHeaders_ODVDOpenDLVStandardMessageSet.h> 
+#include <odvdrhino/GeneratedHeaders_ODVDRhino.h> 
+
 #include "CanMessageDataStore.h"
 #include "Can.h"
 
@@ -269,6 +272,19 @@ void Can::nextGenericCANMessage(const automotive::GenericCANMessage &gcm)
         }
 
         getConference().send(c);
+
+        // Generate GroundSpeedReading message
+        if (c.getDataType() == opendlv::proxy::rhino::Propulsion::ID()) {
+          auto propulsion = c.getData<opendlv::proxy::rhino::Propulsion>();
+          const double groundSpeedKph = static_cast<double>(propulsion.getPropulsionShaftVehicleSpeed());
+          const double groundSpeed = groundSpeedKph / 3.6;
+
+          opendlv::proxy::GroundSpeedReading groundSpeedReading;
+          groundSpeedReading.setGroundSpeed(groundSpeed);
+
+          Container groundSpeedReadingContainer = Container(groundSpeedReading);
+          getConference().send(groundSpeedReadingContainer);
+        }
     }
 
     // Enqueue CAN message wrapped as Container to be recorded if we have a valid recorder.
