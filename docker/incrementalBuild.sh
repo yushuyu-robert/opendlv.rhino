@@ -31,14 +31,14 @@ cd /opt/opendlv.rhino.build
 echo "[opendlv.rhino Docker builder] Incremental build."
 
 mkdir -p build.proxy && cd build.proxy
-CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_INCLUDE_DIR=/opt/opendlv.rhino.sources/thirdparty/cxxtest -D OPENDAVINCI_DIR=/opt/od4 -D ODVDOPENDLVSHARED_DIR=/opt/opendlv.core -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources/code/proxy-rhino
+CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_INCLUDE_DIR=/opt/opendlv.rhino.sources/thirdparty/cxxtest -D OPENDAVINCI_DIR=/opt/od4 -D ODVDOPENDLVSTANDARDMESSAGESET_DIR=/opt/opendlv.core -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources/code/proxy-rhino
 
 CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4 && make test && make install
 
 cd ..
 
 mkdir -p build.system && cd build.system
-CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_INCLUDE_DIR=/opt/opendlv.rhino.sources/thirdparty/cxxtest -D OPENDAVINCI_DIR=/opt/od4 -D ODVDOPENDLVSHARED_DIR=/opt/opendlv.core -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources/code/system-rhino
+CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_INCLUDE_DIR=/opt/opendlv.rhino.sources/thirdparty/cxxtest -D OPENDAVINCI_DIR=/opt/od4 -D ODVDOPENDLVSTANDARDMESSAGESET_DIR=/opt/opendlv.core -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources/code/system-rhino
 
 CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4 && make test && make install
 

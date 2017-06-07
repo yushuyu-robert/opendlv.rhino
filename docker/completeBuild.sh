@@ -31,7 +31,7 @@ cd /opt/opendlv.rhino.build
 
 echo "[opendlv.rhino Docker builder] Complete build."
 cmake -E remove_directory .
-CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D OPENDAVINCI_DIR=/opt/od4 -D PACKAGING_ENABLED=$PACKAGING_ENABLED -D ODVDOPENDLVSHARED_DIR=/opt/opendlv.core -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources
+CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D OPENDAVINCI_DIR=/opt/od4 -D PACKAGING_ENABLED=$PACKAGING_ENABLED -D ODVDOPENDLVSTANDARDMESSAGESET_DIR=/opt/opendlv.core -D ODVDVEHICLE_DIR=/opt/opendlv.core -D ODVDOPENDLVDATA_DIR=/opt/opendlv -D CMAKE_INSTALL_PREFIX=/opt/opendlv.rhino /opt/opendlv.rhino.sources
 CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4
 EOF
 
