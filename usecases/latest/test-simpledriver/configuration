@@ -128,7 +128,7 @@ logic-legacy-simpledriver.minimum_preview_distance = 10.0 # To get rid of locali
 logic-legacy-simpledriver.aim_point_inclusion_angle_deg = 220.0 # In degrees, normally not changed
 logic-legacy-simpledriver.discard_threshold_time_headway = 1.8
 
-proxy-trimble.ip = 10.40.40.20    # Change to Trimble IP.
+proxy-trimble.ip = 10.40.40.13    # Change to Trimble IP.
 proxy-trimble.port = 9999
 proxy-trimble.debug = 0
 
