@@ -48,6 +48,7 @@ set(LIBRARIES ${OPENDAVINCI_LIBRARIES})
 ###########################################################################
 # Add subfolders with sources.
 add_subdirectory(can)
+add_subdirectory(cloud)
 
 ###########################################################################
 # Enable CPack to create .deb and .rpm.
