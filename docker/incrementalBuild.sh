@@ -35,6 +35,7 @@ CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_
 
 CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4 && make test && make install
 
+<<<<<<< HEAD
 cd ..
 
 mkdir -p build.system && cd build.system
@@ -42,6 +43,8 @@ CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH cmake -D CXXTEST_
 
 CCACHE_DIR=/opt/ccache PATH=/usr/lib/ccache:/opt/od4/bin:$PATH make -j4 && make test && make install
 
+=======
+>>>>>>> 3e80a56bd605ab8bbbd6ffb116b60904c841ba29
 EOF
 
 chmod 755 /opt/opendlv.rhino.build/build.sh
