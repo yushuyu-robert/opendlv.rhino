@@ -29,6 +29,9 @@
 #include <opendavinci/odcore/strings/StringToolbox.h>
 #include <opendavinci/odtools/recorder/Recorder.h>
 
+#include <odvdopendlvstandardmessageset/GeneratedHeaders_ODVDOpenDLVStandardMessageSet.h> 
+#include <odvdrhino/GeneratedHeaders_ODVDRhino.h> 
+
 #include "CanMessageDataStore.h"
 #include "Can.h"
 
@@ -61,7 +64,7 @@ Can::Can(const int &argc, char **argv)
 Can::~Can() {}
 
 void Can::setUp() {
-    const string DEVICE_NODE = getKeyValueConfiguration().getValue< string >("proxy-fh16.devicenode");
+    const string DEVICE_NODE = getKeyValueConfiguration().getValue< string >("proxy-rhino-can.devicenode");
 
     // Try to open CAN device and register this instance as receiver for GenericCANMessages.
     m_device = shared_ptr< CANDevice >(new SocketCANDevice(DEVICE_NODE, *this));
@@ -81,12 +84,12 @@ void Can::setUp() {
         }
         const string TIMESTAMP = strTimeStampNoSpace.str();
 
-        const bool RECORD_GCM = (getKeyValueConfiguration().getValue< int >("proxy-fh16.record_gcm") == 1);
+        const bool RECORD_GCM = (getKeyValueConfiguration().getValue< int >("proxy-rhino-can.record_gcm") == 1);
         if (RECORD_GCM) {
             setUpRecordingGenericCANMessage(TIMESTAMP);
         }
 
-        const bool RECORD_MAPPED = (getKeyValueConfiguration().getValue< int >("proxy-fh16.record_mapped_data") == 1);
+        const bool RECORD_MAPPED = (getKeyValueConfiguration().getValue< int >("proxy-rhino-can.record_mapped_data") == 1);
         if (RECORD_MAPPED) {
             setUpRecordingMappedGenericCANMessage(TIMESTAMP);
         }
@@ -94,7 +97,7 @@ void Can::setUp() {
         bool valueFound = false;
         bool enableActuationBrake = 
           getKeyValueConfiguration().getOptionalValue<bool>(
-              "proxy-fh16.enableActuationBrake", valueFound);
+              "proxy-rhino-can.enableActuationBrake", valueFound);
         if (!valueFound) {
           enableActuationBrake = false;
         }
@@ -104,7 +107,7 @@ void Can::setUp() {
 
         bool enableActuationSteering = 
           getKeyValueConfiguration().getOptionalValue<bool>(
-              "proxy-fh16.enableActuationSteering", valueFound);
+              "proxy-rhino-can.enableActuationSteering", valueFound);
         if (!valueFound) {
           enableActuationSteering = false;
         }
@@ -114,7 +117,7 @@ void Can::setUp() {
 
         bool enableActuationThrottle = 
           getKeyValueConfiguration().getOptionalValue<bool>(
-              "proxy-fh16.enableActuationThrottle", valueFound);
+              "proxy-rhino-can.enableActuationThrottle", valueFound);
         if (!valueFound) {
           enableActuationThrottle = false;
         }
@@ -269,6 +272,19 @@ void Can::nextGenericCANMessage(const automotive::GenericCANMessage &gcm)
         }
 
         getConference().send(c);
+
+        // Generate GroundSpeedReading message
+        if (c.getDataType() == opendlv::proxy::rhino::Propulsion::ID()) {
+          auto propulsion = c.getData<opendlv::proxy::rhino::Propulsion>();
+          const double groundSpeedKph = static_cast<double>(propulsion.getPropulsionShaftVehicleSpeed());
+          const double groundSpeed = groundSpeedKph / 3.6;
+
+          opendlv::proxy::GroundSpeedReading groundSpeedReading;
+          groundSpeedReading.setGroundSpeed(groundSpeed);
+
+          Container groundSpeedReadingContainer = Container(groundSpeedReading);
+          getConference().send(groundSpeedReadingContainer);
+        }
     }
 
     // Enqueue CAN message wrapped as Container to be recorded if we have a valid recorder.
