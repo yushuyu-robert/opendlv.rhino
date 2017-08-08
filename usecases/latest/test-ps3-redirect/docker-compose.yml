@@ -20,11 +20,21 @@
 version: '2'
 
 services:
-# First, two named pipes need to be created: mkfifo odfilter-odredirector odredirector-odfilter
+    # First, create two named pipes.
+    make-pipes:
+        build: .
+        cap_add:
+            - MKNOD
+        volumes:
+            - .:/opt/io:shared
+        command: "/bin/bash -c '[ ! -f /opt/io/odfilter-odredirector ] && mknod -m 0666 /opt/io/odfilter-odredirector p; [ ! -f /opt/io/odredirector-odfilter ] && mknod -m 0666 /opt/io/odredirector-odfilter p'"
+
     # odsupercomponent-111 hosts the PS3 controller and an odredirector to dump data to STDOUT.
     odsupercomponent-111:
         build: .
         network_mode: "host"
+        depends_on:
+            - make-pipes
         volumes:
         - .:/opt/opendlv.data
         command: "/opt/od4/bin/odsupercomponent --cid=111 --verbose=1 --configuration=/opt/opendlv.data/configuration"
@@ -34,7 +44,7 @@ services:
         build: .
         network_mode: "host"
         devices:
-            - /dev/input/js2:/dev/input/js0
+            - /dev/input/js0:/dev/input/js0
         depends_on:
             - odsupercomponent-111
         command: "/opt/opendlv.core/bin/opendlv-core-system-ps3controller --cid=111 --freq=100"
