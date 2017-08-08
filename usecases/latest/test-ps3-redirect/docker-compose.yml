@@ -20,6 +20,7 @@
 version: '2'
 
 services:
+# First, two named pipes need to be created: mkfifo odfilter-odredirector odredirector-odfilter
     # odsupercomponent-111 hosts the PS3 controller and an odredirector to dump data to STDOUT.
     odsupercomponent-111:
         build: .
