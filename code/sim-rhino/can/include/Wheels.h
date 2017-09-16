@@ -27,16 +27,24 @@ namespace sim {
 namespace rhino {
 
 /**
- * Simulated Rhino body.
+ * Simulated Rhino wheels.
  */
 class Wheels {
-   public:
+  public:
     Wheels();
     Wheels(Wheels const &) = delete;
     Wheels &operator=(Wheels const &) = delete;
     virtual ~Wheels();
+    double GetFrontWheelSpeed() const;
+    double GetRearWheelSpeed() const;
+    double GetRoadWheelAngle() const;
+    void Update(double);
 
-   private:
+  private:
+    double m_frontWheelSpeed;
+    double m_rearWheelSpeed;
+    double m_roadWheelAngle;
+    
 };
 
 }

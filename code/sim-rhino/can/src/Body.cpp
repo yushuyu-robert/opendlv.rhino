@@ -17,15 +17,18 @@
  */
 
 #include "Body.h"
-#include <iostream>
-
-using namespace std;
 
 namespace opendlv {
 namespace sim {
 namespace rhino {
 
-Body::Body()
+Body::Body():
+  m_lateralAcceleration(0.0),
+  m_lateralVelocity(0.0),
+  m_longitudinalAcceleration(0.0),
+  m_longitudinalVelocity(0.0),
+  m_yawAcceleration(0.0),
+  m_yawVelocity(0.0)
 {
 }
 
@@ -33,30 +36,39 @@ Body::~Body()
 {
 }
 
-// Example
-//double Body::GetX() const
-//{
-//  return m_x;
-//}
-
-void Body::Update(float a_deltaTime)
+double Body::GetLateralAcceleration() const
 {
-  cout << "Hello" << endl;
-  (void) a_deltaTime;
-
-  // Remove later.
- // Update the state of body...
-
-  // Example
-//   m_x = m_x + xdot * a_deltaTime;
-//   m_u = m_u + udot * a_deltaTime;
+  return m_lateralAcceleration;
 }
 
-//I tried with another function
-
-void Body::Test()
+double Body::GetLateralVelocity() const
 {
-  cout << "Hello1" << endl; 
+  return m_lateralVelocity;
+}
+
+double Body::GetLongitudinalAcceleration() const
+{
+  return m_longitudinalAcceleration;
+}
+
+double Body::GetLongitudinalVelocity() const
+{
+  return m_longitudinalVelocity;
+}
+
+double Body::GetYawAcceleration() const
+{
+  return m_yawAcceleration;
+}
+
+double Body::GetYawVelocity() const
+{
+  return m_yawVelocity;
+}
+
+void Body::Update(double a_deltaTime)
+{
+  (void) a_deltaTime;
 }
 
 }

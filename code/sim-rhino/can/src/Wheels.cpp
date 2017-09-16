@@ -22,12 +22,35 @@ namespace opendlv {
 namespace sim {
 namespace rhino {
 
-Wheels::Wheels()
+Wheels::Wheels():
+  m_frontWheelSpeed(),
+  m_rearWheelSpeed(),
+  m_roadWheelAngle()
 {
 }
 
 Wheels::~Wheels()
 {
+}
+    
+double Wheels::GetFrontWheelSpeed() const
+{
+  return m_frontWheelSpeed;
+}
+
+double Wheels::GetRearWheelSpeed() const
+{
+  return m_rearWheelSpeed;
+}
+
+double Wheels::GetRoadWheelAngle() const
+{
+  return m_roadWheelAngle;
+}
+
+void Wheels::Update(double a_deltaTime)
+{
+  (void) a_deltaTime;
 }
 
 }

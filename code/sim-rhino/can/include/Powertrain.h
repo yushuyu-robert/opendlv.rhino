@@ -16,20 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "Driveline.h"
+#ifndef SIM_RHINO_POWERTRAIN_H
+#define SIM_RHINO_POWERTRAIN_H
+
+#include <memory>
+#include <string>
 
 namespace opendlv {
 namespace sim {
 namespace rhino {
 
-Driveline::Driveline()
-{
+/**
+ * Simulated Rhino powertrain.
+ */
+class Powertrain {
+  public:
+    Powertrain();
+    Powertrain(Powertrain const &) = delete;
+    Powertrain &operator=(Powertrain const &) = delete;
+    virtual ~Powertrain();
+    double GetAcceleratorPedalPosition() const;
+    double GetEngineSpeed() const;
+    double GetEngineTorque() const;
+    int32_t GetGear() const;
+    void Update(double);
+
+  private:
+    double m_acceleratorPedalPosition;
+    double m_engineSpeed;
+    double m_engineTorque;
+    int32_t m_gear;
+};
+
+}
+}
 }
 
-Driveline::~Driveline()
-{
-}
-
-}
-}
-} 
+#endif

@@ -30,14 +30,14 @@ namespace sim {
 namespace rhino {
 
 class Body;
-class Driveline;
+class Powertrain;
 class Wheels;
 
 /**
- * Simulated Rhino body.
+ * Simulated Rhino.
  */
 class Vehicle {
-   public:
+  public:
     Vehicle();
     Vehicle(Vehicle const &) = delete;
     Vehicle &operator=(Vehicle const &) = delete;
@@ -56,9 +56,9 @@ class Vehicle {
     void SetSteeringRequest(opendlv::proxy::rhino::SteeringRequest);
     void Update(double);
 
-   private:
+  private:
     std::unique_ptr<Body> m_body;
-    std::unique_ptr<Driveline> m_driveline;
+    std::unique_ptr<Powertrain> m_powertrain;
     std::unique_ptr<Wheels> m_wheels;
 };
 
