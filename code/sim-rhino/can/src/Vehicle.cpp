@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 Chalmers Revere
+ * Copyright (C) 2017 Ola Benderius
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,18 +36,6 @@ Vehicle::~Vehicle()
 {
 }
 
-opendlv::proxy::rhino::ManualControl Vehicle::GetManualControl() const
-{
-  double accelerationPedalPosition = 0.0;
-  double brakePedalPosition = 0.0;
-  double torsionBarTorque = 0.0;
-  odcore::data::TimeStamp fromSensor;
-
-  opendlv::proxy::rhino::ManualControl manualControl(accelerationPedalPosition,
-      brakePedalPosition, torsionBarTorque, fromSensor);
-  return manualControl;
-}
-
 opendlv::proxy::rhino::Axles Vehicle::GetAxles() const
 {
   double loadAxle11 = 0.0;
@@ -60,6 +48,51 @@ opendlv::proxy::rhino::Axles Vehicle::GetAxles() const
   return axles;
 }
 
+opendlv::proxy::rhino::Driveline Vehicle::GetDriveline() const
+{
+	float engineTorque = 0.0f;
+	float engineSpeed = 0.0f;
+	int8_t currentGear = 0;
+
+  opendlv::proxy::rhino::Driveline driveline(engineTorque, engineSpeed,
+      currentGear);
+  return driveline;
+}
+
+opendlv::proxy::GroundSpeedReading Vehicle::GetGroundSpeedReading() const
+{
+  double groundSpeed = 0.0;
+
+  opendlv::proxy::GroundSpeedReading groundSpeedReading(groundSpeed);
+  return groundSpeedReading;
+}
+
+opendlv::coord::KinematicState Vehicle::GetKinematicState() const
+{
+  double const vx = 0.0;
+  double const vy = 0.0;
+  double const vz = 0.0;
+  double const rollRate = 0.0;
+  double const pitchRate = 0.0;
+  double const yawRate = 0.0;
+ 
+  opendlv::coord::KinematicState const kinematicState(vx, vy, vz, rollRate,
+      pitchRate, yawRate);
+  return kinematicState;
+}
+
+opendlv::proxy::rhino::ManualControl Vehicle::GetManualControl() const
+{
+  double accelerationPedalPosition = 0.0;
+  double brakePedalPosition = 0.0;
+  double torsionBarTorque = 0.0;
+  odcore::data::TimeStamp fromSensor;
+
+  opendlv::proxy::rhino::ManualControl manualControl(accelerationPedalPosition,
+      brakePedalPosition, torsionBarTorque, fromSensor);
+  return manualControl;
+}
+
 opendlv::proxy::rhino::Propulsion Vehicle::GetPropulsion() const
 {
   double propulsionShaftVehicleSpeed = 0.0;
@@ -68,6 +101,17 @@ opendlv::proxy::rhino::Propulsion Vehicle::GetPropulsion() const
   opendlv::proxy::rhino::Propulsion propulsion(propulsionShaftVehicleSpeed,
       fromSensor);
   return propulsion;
+}
+
+opendlv::proxy::rhino::Steering Vehicle::GetSteering() const
+{
+  double roadWheelAngle = 0.0;
+  double steeringWheelAngle = 0.0;
+  odcore::data::TimeStamp fromSensor;
+
+  opendlv::proxy::rhino::Steering steering(roadWheelAngle, steeringWheelAngle,
+      fromSensor);
+  return steering;
 }
 
 opendlv::proxy::rhino::VehicleState Vehicle::GetVehicleState() const
@@ -95,28 +139,6 @@ opendlv::proxy::rhino::Wheels Vehicle::GetWheels() const
   opendlv::proxy::rhino::Wheels wheels(speedWheel111, speedWheel112,
       speedWheel121, speedWheel122, speedWheel131, speedWheel132, fromSensor);
   return wheels;
-}
-
-opendlv::proxy::rhino::Steering Vehicle::GetSteering() const
-{
-  double roadWheelAngle = 0.0;
-  double steeringWheelAngle = 0.0;
-  odcore::data::TimeStamp fromSensor;
-
-  opendlv::proxy::rhino::Steering steering(roadWheelAngle, steeringWheelAngle,
-      fromSensor);
-  return steering;
-}
-
-opendlv::proxy::rhino::Driveline Vehicle::GetDriveline() const
-{
-	float engineTorque = 0.0f;
-	float engineSpeed = 0.0f;
-	int8_t currentGear = 0;
-
-  opendlv::proxy::rhino::Driveline driveline(engineTorque, engineSpeed,
-      currentGear);
-  return driveline;
 }
 
 void Vehicle::SetAccelerationRequest(
@@ -155,7 +177,7 @@ void Vehicle::SetSteeringRequest(
   }
 }
 
-void Vehicle::Update(float a_deltaTime)
+void Vehicle::Update(double a_deltaTime)
 {
   (void) a_deltaTime; // Since not used.. Remove later.
 

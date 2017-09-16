@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 Chalmers Revere
+ * Copyright (C) 2017 Ola Benderius
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +22,7 @@
 #include <memory>
 #include <string>
 
+#include <odvdopendlvstandardmessageset/GeneratedHeaders_ODVDOpenDLVStandardMessageSet.h>
 #include <odvdrhino/GeneratedHeaders_ODVDRhino.h>
 
 namespace opendlv {
@@ -41,17 +42,19 @@ class Vehicle {
     Vehicle(Vehicle const &) = delete;
     Vehicle &operator=(Vehicle const &) = delete;
     virtual ~Vehicle();
-    opendlv::proxy::rhino::ManualControl GetManualControl() const;
     opendlv::proxy::rhino::Axles GetAxles() const;
+    opendlv::proxy::rhino::Driveline GetDriveline() const;
+    opendlv::proxy::GroundSpeedReading GetGroundSpeedReading() const;
+    opendlv::coord::KinematicState GetKinematicState() const;
+    opendlv::proxy::rhino::ManualControl GetManualControl() const;
     opendlv::proxy::rhino::Propulsion GetPropulsion() const;
+    opendlv::proxy::rhino::Steering GetSteering() const;
     opendlv::proxy::rhino::VehicleState GetVehicleState() const;
     opendlv::proxy::rhino::Wheels GetWheels() const;
-    opendlv::proxy::rhino::Steering GetSteering() const;
-    opendlv::proxy::rhino::Driveline GetDriveline() const;
     void SetAccelerationRequest(opendlv::proxy::rhino::AccelerationRequest);
     void SetBrakeRequest(opendlv::proxy::rhino::BrakeRequest);
     void SetSteeringRequest(opendlv::proxy::rhino::SteeringRequest);
-    void Update(float);
+    void Update(double);
 
    private:
     std::unique_ptr<Body> m_body;

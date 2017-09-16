@@ -23,6 +23,7 @@
 #include <opendavinci/odcore/data/Container.h>
 #include <opendavinci/odcore/data/TimeStamp.h>
 
+#include <odvdopendlvstandardmessageset/GeneratedHeaders_ODVDOpenDLVStandardMessageSet.h>
 #include <odvdrhino/GeneratedHeaders_ODVDRhino.h>
 #include <odvdvehicle/GeneratedHeaders_ODVDVehicle.h>
 
@@ -154,40 +155,49 @@ odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode Can::body()
       odcore::data::dmcp::ModuleStateMessage::RUNNING) {
 
     odcore::data::TimeStamp now;
-    float deltaTime = static_cast<float>((now.getMicroseconds() - lastUpdate.getMicroseconds()) / 1000000.0);
+    double const deltaTime = 
+      (now.getMicroseconds() - lastUpdate.getMicroseconds()) / 1000000.0;
     lastUpdate = now;
-
-    std::cout << "Delta time: " << deltaTime << std::endl; // Remove later.
 
     m_vehicle->Update(deltaTime);
 
-    auto manualControl = m_vehicle->GetManualControl();
+    // Platform specific messages.
+    auto const manualControl = m_vehicle->GetManualControl();
     odcore::data::Container manualControlContainer(manualControl);
     getConference().send(manualControlContainer);
 
-    auto axles = m_vehicle->GetAxles();
+    auto const axles = m_vehicle->GetAxles();
     odcore::data::Container axlesContainer(axles);
     getConference().send(axlesContainer);
     
-    auto propulsion = m_vehicle->GetPropulsion();
+    auto const propulsion = m_vehicle->GetPropulsion();
     odcore::data::Container propulsionContainer(propulsion);
     getConference().send(propulsionContainer);
     
-    auto vehicleState = m_vehicle->GetVehicleState();
+    auto const vehicleState = m_vehicle->GetVehicleState();
     odcore::data::Container vehicleStateContainer(vehicleState);
     getConference().send(vehicleStateContainer);
     
-    auto wheels = m_vehicle->GetWheels();
+    auto const wheels = m_vehicle->GetWheels();
     odcore::data::Container wheelsContainer(wheels);
     getConference().send(wheelsContainer);
     
-    auto steering = m_vehicle->GetSteering();
+    auto const steering = m_vehicle->GetSteering();
     odcore::data::Container steeringContainer(steering);
     getConference().send(steeringContainer);
     
-    auto driveline = m_vehicle->GetDriveline();
+    auto const driveline = m_vehicle->GetDriveline();
     odcore::data::Container drivelineContainer(driveline);
     getConference().send(drivelineContainer);
+    
+    // Generic messages.
+    auto const groundSpeedReading = m_vehicle->GetGroundSpeedReading();
+    odcore::data::Container groundSpeedReadingContainer(groundSpeedReading);
+    getConference().send(groundSpeedReadingContainer);
+
+    auto const kinematicState = m_vehicle->GetKinematicState();
+    odcore::data::Container kinematicStateContainer(kinematicState);
+    getConference().send(kinematicStateContainer);
   }
 
   return odcore::data::dmcp::ModuleExitCodeMessage::OKAY;
