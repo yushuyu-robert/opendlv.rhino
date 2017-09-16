@@ -30,13 +30,13 @@ message opendlv.proxy.rhino.AccelerationRequest [id = 192] {
 
 message opendlv.proxy.rhino.BrakeRequest [id = 193] {
     bool enableRequest [id = 1];
-    double brake [id = 2];
+    double deceleration [id = 2];
 }
 
 message opendlv.proxy.rhino.SteeringRequest [id = 194] {
     bool enableRequest [id = 1];
-    double steeringRoadWheelAngle [id = 2];
-    double steeringDeltaTorque [id = 3];
+    double roadWheelAngle [id = 2];
+    double deltaTorque [id = 3];
 }
 
 message opendlv.proxy.rhino.Axles [id = 195] {

@@ -69,9 +69,9 @@ void CanMessageDataStore::add(odcore::data::Container &a_container) {
                     << "may be a safety violating behaviour!" 
                     << std::endl;
                 }
-                brakeRequest.setBrake(-max_deceleration);
+                brakeRequest.setDeceleration(-max_deceleration);
             } else {
-                brakeRequest.setBrake(acceleration);
+                brakeRequest.setDeceleration(acceleration);
             }
 
             odcore::data::Container brakeRequestContainer(brakeRequest);
@@ -102,10 +102,10 @@ void CanMessageDataStore::add(odcore::data::Container &a_container) {
         const float steering = actuationRequest.getSteering();
         opendlv::proxy::rhino::SteeringRequest steeringRequest;
         steeringRequest.setEnableRequest(steeringEnabled);
-        steeringRequest.setSteeringRoadWheelAngle(steering);
+        steeringRequest.setRoadWheelAngle(steering);
 
         // Must be 33.535 to disable deltatorque.
-        steeringRequest.setSteeringDeltaTorque(33.535);
+        steeringRequest.setDeltaTorque(33.535);
         odcore::data::Container steeringRequestContainer(steeringRequest);
 
         canmapping::opendlv::proxy::rhino::SteeringRequest steeringRequestMapping;

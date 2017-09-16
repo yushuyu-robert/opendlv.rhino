@@ -15,6 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-# Date: 2017-04-07
+# Date: 2016-09-09
 
-FROM seresearch/opendlv-rhino-on-opendlv-on-opendlv-core-on-opendavinci-on-base:latest
+FROM seresearch/opendlv-rhino-on-opendlv-on-opendlv-core-on-opendavinci-ubuntu-16.04-complete:latest
+
