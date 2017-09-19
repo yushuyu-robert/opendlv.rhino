@@ -51,7 +51,8 @@ opendlv::proxy::rhino::Axles Vehicle::GetAxles() const
 opendlv::proxy::rhino::Driveline Vehicle::GetDriveline() const
 {
 	float engineTorque = static_cast<float>(m_powertrain->GetEngineTorque());
-	float engineSpeed = static_cast<float>(m_powertrain->GetEngineSpeed());
+	float engineSpeed = static_cast<float>(m_powertrain->GetEngineSpeed() 
+      * 30.0 / 3.14);
 	int8_t currentGear = static_cast<int8_t>(m_powertrain->GetGear());
 
   opendlv::proxy::rhino::Driveline driveline(engineTorque, engineSpeed,
@@ -149,8 +150,7 @@ void Vehicle::SetAccelerationRequest(
   if (enableRequest) {
     double accelerationPedalPosition =
       a_accelerationRequest.getAccelerationPedalPosition();
-
-    (void) accelerationPedalPosition; // Since not used.. Remove later.
+    m_powertrain->SetAcceleratorPedalPosition(accelerationPedalPosition);
   }
 }
 
@@ -180,10 +180,9 @@ void Vehicle::SetSteeringRequest(
 
 void Vehicle::Update(double a_deltaTime)
 {
-  (void) a_deltaTime; // Since not used.. Remove later.
-
+  double const longitudinalAcceleration = m_body->GetLongitudinalAcceleration();
   // m_body->Update(a_deltaTime);
-  // m_powertrain->Update(a_deltaTime);
+  m_powertrain->Update(a_deltaTime, longitudinalAcceleration);
   // m_wheels->Update(a_deltaTime);
 }
 

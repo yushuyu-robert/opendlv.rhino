@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 
+#include <opendavinci/odcore/base/Lock.h>
 #include <opendavinci/odcore/data/Container.h>
 #include <opendavinci/odcore/data/TimeStamp.h>
 
@@ -37,6 +38,7 @@ namespace rhino {
 Can::Can(const int &argc, char **argv)
   : DataTriggeredConferenceClientModule(argc, argv, "sim-rhino-can")
   , m_vehicle(new Vehicle)
+  , m_vehicleMutex()
   , m_enableActuationBrake(false)
   , m_enableActuationSteering(false)
   , m_enableActuationThrottle(false)
@@ -78,6 +80,7 @@ void Can::nextContainer(odcore::data::Container &a_container)
         brakeRequest.setDeceleration(acceleration);
       }
 
+      odcore::base::Lock l(m_vehicleMutex);
       m_vehicle->SetBrakeRequest(brakeRequest);
     } else {
       bool throttleEnabled = false;
@@ -89,6 +92,7 @@ void Can::nextContainer(odcore::data::Container &a_container)
       accelerationRequest.setEnableRequest(throttleEnabled);
       accelerationRequest.setAccelerationPedalPosition(acceleration);
 
+      odcore::base::Lock l(m_vehicleMutex);
       m_vehicle->SetAccelerationRequest(accelerationRequest);
     }
 
@@ -105,6 +109,7 @@ void Can::nextContainer(odcore::data::Container &a_container)
     // Must be 33.535 to disable deltatorque.
     steeringRequest.setDeltaTorque(33.535);
 
+    odcore::base::Lock l(m_vehicleMutex);
     m_vehicle->SetSteeringRequest(steeringRequest);
   }
 }
@@ -159,6 +164,7 @@ odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode Can::body()
       (now.getMicroseconds() - lastUpdate.getMicroseconds()) / 1000000.0;
     lastUpdate = now;
 
+    odcore::base::Lock l(m_vehicleMutex);
     m_vehicle->Update(deltaTime);
 
     // Platform specific messages.

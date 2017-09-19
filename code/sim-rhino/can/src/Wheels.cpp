@@ -53,6 +53,11 @@ void Wheels::Update(double a_deltaTime)
   (void) a_deltaTime;
 }
 
+void Wheels::SetRoadWheelAngle(double a_roadWheelAngle)
+{
+  m_roadWheelAngle = a_roadWheelAngle;
+}
+
 }
 }
 } 

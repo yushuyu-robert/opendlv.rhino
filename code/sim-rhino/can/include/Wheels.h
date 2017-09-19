@@ -39,6 +39,7 @@ class Wheels {
     double GetRearWheelSpeed() const;
     double GetRoadWheelAngle() const;
     void Update(double);
+    void SetRoadWheelAngle(double);
 
   private:
     double m_frontWheelSpeed;

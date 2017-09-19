@@ -35,17 +35,18 @@ class Powertrain {
     Powertrain(Powertrain const &) = delete;
     Powertrain &operator=(Powertrain const &) = delete;
     virtual ~Powertrain();
+    double CalcEngineMaxTorque() const;
     double GetAcceleratorPedalPosition() const;
     double GetEngineSpeed() const;
     double GetEngineTorque() const;
     int32_t GetGear() const;
-    void Update(double);
+    void Update(double, double);
+    void SetAcceleratorPedalPosition(double);
 
   private:
     double m_acceleratorPedalPosition;
     double m_engineSpeed;
     double m_engineTorque;
-    int32_t m_gear;
 };
 
 }

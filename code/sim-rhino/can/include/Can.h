@@ -22,6 +22,8 @@
 #include <memory>
 #include <string>
 
+#include <opendavinci/odcore/base/Mutex.h>
+
 #include <opendavinci/odcore/base/module/DataTriggeredConferenceClientModule.h>
 
 namespace opendlv {
@@ -47,6 +49,7 @@ class Can : public odcore::base::module::DataTriggeredConferenceClientModule {
     virtual odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode body();
 
     std::unique_ptr<Vehicle> m_vehicle;
+    odcore::base::Mutex m_vehicleMutex;
     bool m_enableActuationBrake;
     bool m_enableActuationSteering;
     bool m_enableActuationThrottle;
