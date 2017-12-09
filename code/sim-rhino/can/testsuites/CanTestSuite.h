@@ -16,8 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PROXY_RHINO_CAN_TESTSUITE_H
-#define PROXY_RHINO_CAN_TESTSUITE_H
+#ifndef VIRTUAL_RHINO_CAN_TESTSUITE_H
+#define VIRTUAL_RHINO_CAN_TESTSUITE_H
 
 #include "cxxtest/TestSuite.h"
 

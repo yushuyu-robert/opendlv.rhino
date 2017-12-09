@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Christian Berger
+ * Copyright (C) 2017 Chalmers Revere
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,23 +16,48 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PROXY_RHINO_CAN_TESTSUITE_H
-#define PROXY_RHINO_CAN_TESTSUITE_H
+#include "Wheels.h"
 
-#include "cxxtest/TestSuite.h"
+namespace opendlv {
+namespace sim {
+namespace rhino {
 
-// Include local header files.
-#include "../include/Can.h"
+Wheels::Wheels():
+  m_frontWheelSpeed(),
+  m_rearWheelSpeed(),
+  m_roadWheelAngle()
+{
+}
 
-class CanTest : public CxxTest::TestSuite {
-   public:
-    void setUp() {}
+Wheels::~Wheels()
+{
+}
+    
+double Wheels::GetFrontWheelSpeed() const
+{
+  return m_frontWheelSpeed;
+}
 
-    void tearDown() {}
+double Wheels::GetRearWheelSpeed() const
+{
+  return m_rearWheelSpeed;
+}
 
-    void testApplication() {
-        TS_ASSERT(true);
-    }
-};
+double Wheels::GetRoadWheelAngle() const
+{
+  return m_roadWheelAngle;
+}
 
-#endif
+void Wheels::Update(double a_deltaTime)
+{
+  (void) a_deltaTime;
+}
+
+void Wheels::SetRoadWheelAngle(double a_roadWheelAngle)
+{
+  m_roadWheelAngle = a_roadWheelAngle;
+}
+
+}
+}
+} 

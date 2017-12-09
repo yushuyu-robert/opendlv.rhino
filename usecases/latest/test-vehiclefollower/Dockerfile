@@ -1,5 +1,5 @@
-# Dockerfile - Dockerfile to run OpenDLV software.
-# Copyright (C) 2016 Christian Berger
+# Dockerfile - Dockerfile to run COPPLAR software.
+# Copyright (C) 2017 Christian Berger
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,6 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-# Date: 2017-04-07
+# Date: 2017-03-29
 
 FROM seresearch/opendlv-rhino-on-opendlv-on-opendlv-core-on-opendavinci-on-base:latest
+
