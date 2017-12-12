@@ -21,7 +21,7 @@ version: '2'
 
 services:
     odsupercomponent:
-        build: .
+        image: ${IMAGE}
         network_mode: "host"
         volumes:
         - .:/opt/opendlv.data
@@ -30,6 +30,7 @@ services:
     # micro service for sim-rhino-can.
     sim-rhino-can:
         build: .
+        image: ${IMAGE}
         network_mode: "host"
         depends_on:
             - odsupercomponent
@@ -38,7 +39,7 @@ services:
 
     # micro service for PS3 controller.
     system-ps3controller:
-        build: .
+        image: ${IMAGE}
         network_mode: "host"
         devices:
         - "/dev/input/js0:/dev/input/js0"
