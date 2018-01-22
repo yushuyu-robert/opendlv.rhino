@@ -68,6 +68,7 @@ opendlv::proxy::GroundSpeedReading Vehicle::GetGroundSpeedReading() const
   return groundSpeedReading;
 }
 
+/*
 opendlv::coord::KinematicState Vehicle::GetKinematicState() const
 {
   double const vx = m_body->GetLongitudinalVelocity();
@@ -81,6 +82,7 @@ opendlv::coord::KinematicState Vehicle::GetKinematicState() const
       pitchRate, yawRate);
   return kinematicState;
 }
+*/
 
 opendlv::proxy::rhino::ManualControl Vehicle::GetManualControl() const
 {

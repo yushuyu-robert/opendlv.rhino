@@ -201,9 +201,12 @@ odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode Can::body()
     odcore::data::Container groundSpeedReadingContainer(groundSpeedReading);
     getConference().send(groundSpeedReadingContainer);
 
+    // TODO: Add standard message set.
+    /*
     auto const kinematicState = m_vehicle->GetKinematicState();
     odcore::data::Container kinematicStateContainer(kinematicState);
     getConference().send(kinematicStateContainer);
+    */
   }
 
   return odcore::data::dmcp::ModuleExitCodeMessage::OKAY;

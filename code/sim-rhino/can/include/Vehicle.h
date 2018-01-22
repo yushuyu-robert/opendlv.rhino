@@ -45,7 +45,7 @@ class Vehicle {
     opendlv::proxy::rhino::Axles GetAxles() const;
     opendlv::proxy::rhino::Driveline GetDriveline() const;
     opendlv::proxy::GroundSpeedReading GetGroundSpeedReading() const;
-    opendlv::coord::KinematicState GetKinematicState() const;
+    //opendlv::coord::KinematicState GetKinematicState() const;
     opendlv::proxy::rhino::ManualControl GetManualControl() const;
     opendlv::proxy::rhino::Propulsion GetPropulsion() const;
     opendlv::proxy::rhino::Steering GetSteering() const;
