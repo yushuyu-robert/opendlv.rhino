@@ -55,7 +55,7 @@ double Powertrain::CalcEngineMaxTorque() const
     std::pair<double, double>(167.551, 3310.0),
     std::pair<double, double>(178.023, 3120.0),
     std::pair<double, double>(188.495, 2880.0),
-    std::pair<double, double>(198.967, 2660.0),
+    std::pair<double, double>(198.967, 2660.0 ),
     std::pair<double, double>(209.439, 1680.0),
     std::pair<double, double>(219.911, 0.0)
   };
