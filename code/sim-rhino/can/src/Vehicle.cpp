@@ -20,16 +20,14 @@
 #include "Powertrain.h"
 #include "Vehicle.h"
 #include "Wheels.h"
-//#include "dynamics_vehicle.h"
+#include "dynamics_vehicle.h"
 
 namespace opendlv {
 namespace sim {
 namespace rhino {
 
-Vehicle::Vehicle()
-  : m_body(new Body)
-  , m_powertrain(new Powertrain)
-  , m_wheels(new Wheels)
+Vehicle::Vehicle(): 
+  m_dynamics(new dynamics)
 {
 }
 
@@ -51,10 +49,10 @@ opendlv::proxy::rhino::Axles Vehicle::GetAxles() const
 
 opendlv::proxy::rhino::Driveline Vehicle::GetDriveline() const
 {
-	float engineTorque = static_cast<float>(m_powertrain->GetEngineTorque());
-	float engineSpeed = static_cast<float>(m_powertrain->GetEngineSpeed() 
+	float engineTorque = static_cast<float>(m_dynamics->GetEngineTorque());
+	float engineSpeed = static_cast<float>(m_dynamics->GetEngineSpeed() 
       * 30.0 / 3.14);
-	int8_t currentGear = static_cast<int8_t>(m_powertrain->GetGear());
+	int8_t currentGear = static_cast<int8_t>(m_dynamics->GetGear());
 
   opendlv::proxy::rhino::Driveline driveline(engineTorque, engineSpeed,
       currentGear);
@@ -63,7 +61,7 @@ opendlv::proxy::rhino::Driveline Vehicle::GetDriveline() const
 
 opendlv::proxy::GroundSpeedReading Vehicle::GetGroundSpeedReading() const
 {
-  double groundSpeed = m_body->GetLongitudinalVelocity();
+  double groundSpeed = m_dynamics->GetLongitudinalVelocity();
 
   opendlv::proxy::GroundSpeedReading groundSpeedReading(groundSpeed);
   return groundSpeedReading;
@@ -87,7 +85,7 @@ opendlv::coord::KinematicState Vehicle::GetKinematicState() const
 
 opendlv::proxy::rhino::ManualControl Vehicle::GetManualControl() const
 {
-  double accelerationPedalPosition = m_powertrain->GetAcceleratorPedalPosition();
+  double accelerationPedalPosition = m_dynamics->GetAcceleratorPedalPosition();
   double brakePedalPosition = 0.0;
   double torsionBarTorque = 0.0;
   odcore::data::TimeStamp fromSensor;
@@ -99,7 +97,7 @@ opendlv::proxy::rhino::ManualControl Vehicle::GetManualControl() const
 
 opendlv::proxy::rhino::Propulsion Vehicle::GetPropulsion() const
 {
-  double propulsionShaftVehicleSpeed = m_body->GetLongitudinalVelocity() * 3.6;
+  double propulsionShaftVehicleSpeed = m_dynamics->GetLongitudinalVelocity() * 3.6;
   odcore::data::TimeStamp fromSensor;
 
   opendlv::proxy::rhino::Propulsion propulsion(propulsionShaftVehicleSpeed,
@@ -110,7 +108,7 @@ opendlv::proxy::rhino::Propulsion Vehicle::GetPropulsion() const
 opendlv::proxy::rhino::Steering Vehicle::GetSteering() const
 {
   double const steeringRatio = 0.0; // TODO
-  double const roadWheelAngle = m_wheels->GetRoadWheelAngle();
+  double const roadWheelAngle = m_dynamics->GetRoadWheelAngle();
   double const steeringWheelAngle = roadWheelAngle * steeringRatio;
   odcore::data::TimeStamp fromSensor;
 
@@ -121,9 +119,9 @@ opendlv::proxy::rhino::Steering Vehicle::GetSteering() const
 
 opendlv::proxy::rhino::VehicleState Vehicle::GetVehicleState() const
 {
-  double accelerationX = m_body->GetLongitudinalAcceleration();
-  double accelerationY = m_body->GetLateralAcceleration();
-  double yawRate = m_body->GetYawVelocity();
+  double accelerationX = m_dynamics->GetLongitudinalAcceleration();
+  double accelerationY = m_dynamics->GetLateralAcceleration();
+  double yawRate = m_dynamics->GetYawVelocity();
   odcore::data::TimeStamp fromSensor;
 
   opendlv::proxy::rhino::VehicleState vehicleState(accelerationX, accelerationY,
@@ -133,10 +131,10 @@ opendlv::proxy::rhino::VehicleState Vehicle::GetVehicleState() const
 
 opendlv::proxy::rhino::Wheels Vehicle::GetWheels() const
 {
-  double speedWheel111 = m_wheels->GetFrontWheelSpeed();
-  double speedWheel112 = m_wheels->GetFrontWheelSpeed();
-  double speedWheel121 = m_wheels->GetRearWheelSpeed();
-  double speedWheel122 = m_wheels->GetRearWheelSpeed();
+  double speedWheel111 = m_dynamics->GetFrontWheelSpeed();
+  double speedWheel112 = m_dynamics->GetFrontWheelSpeed();
+  double speedWheel121 = m_dynamics->GetRearWheelSpeed();
+  double speedWheel122 = m_dynamics->GetRearWheelSpeed();
   double speedWheel131 = 0.0;
   double speedWheel132 = 0.0;
   odcore::data::TimeStamp fromSensor;
@@ -153,7 +151,7 @@ void Vehicle::SetAccelerationRequest(
   if (enableRequest) {
     double accelerationPedalPosition =
       a_accelerationRequest.getAccelerationPedalPosition();
-    m_powertrain->SetAcceleratorPedalPosition(accelerationPedalPosition);
+    m_dynamics->SetAcceleratorPedalPosition(accelerationPedalPosition);
   }
 }
 
@@ -176,17 +174,21 @@ void Vehicle::SetSteeringRequest(
     double roadWheelAngle = a_steeringRequest.getRoadWheelAngle();
     double deltaTorque = a_steeringRequest.getDeltaTorque();
 
-    (void) roadWheelAngle; // Since not used.. Remove later.
+    //(void) roadWheelAngle; // Since not used.. Remove later.
     (void) deltaTorque; // Since not used.. Remove later.
+
+    m_dynamics->SetRoadWheelAngle(roadWheelAngle);
   }
 }
 
 void Vehicle::Update(double a_deltaTime)
 {
-  double const longitudinalAcceleration = m_body->GetLongitudinalAcceleration();
+  //double const longitudinalAcceleration = m_dynamics->GetLongitudinalAcceleration();
   // m_body->Update(a_deltaTime);
-  m_powertrain->Update(a_deltaTime, longitudinalAcceleration);
+ // m_powertrain->Update(a_deltaTime, longitudinalAcceleration);
   // m_wheels->Update(a_deltaTime);
+  m_dynamics->T_samp = a_deltaTime;  //a_deltaTime is timestep? 
+  m_dynamics->integrator();
 }
 
 }

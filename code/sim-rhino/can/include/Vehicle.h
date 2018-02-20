@@ -29,9 +29,10 @@ namespace opendlv {
 namespace sim {
 namespace rhino {
 
-class Body;
-class Powertrain;
-class Wheels;
+//class Body;
+//class Powertrain;
+//class Wheels;
+class dynamics;
 
 /**
  * Simulated Rhino.
@@ -57,9 +58,10 @@ class Vehicle {
     void Update(double);
 
   private:
-    std::unique_ptr<Body> m_body;
-    std::unique_ptr<Powertrain> m_powertrain;
-    std::unique_ptr<Wheels> m_wheels;
+   // std::unique_ptr<Body> m_body;
+   // std::unique_ptr<Powertrain> m_powertrain;
+   // std::unique_ptr<Wheels> m_wheels;
+    std::unique_ptr<dynamics> m_dynamics;
 };
 
 }
