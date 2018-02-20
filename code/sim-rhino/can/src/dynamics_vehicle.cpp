@@ -130,7 +130,7 @@ dynamics::dynamics()
 
 
 void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double t_sim, diff_vehicle &out){
-	//the differential equation of all the dynamics
+//the differential equation of all the dynamics
 
 	(void) t_sim;
 	int i = 0;
@@ -228,11 +228,17 @@ void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double
 	double T_req = T_bmax*0.01*B_ped;
 
 	//test:
-	T_brk[0] = T_b_general/2;
-	T_brk[1] = T_b_general/2;
-
-	T_brk[0] = 0;
-	T_brk[1] = 0;
+//	T_brk[0] = T_b_general/2;
+//	T_brk[1] = T_b_general/2;
+//
+//	T_brk[0] = 0;
+//	T_brk[1] = 0;
+	for(int j = 0; j < 2; j++){
+		if(omega_w[j] < 0)
+			T_brk[j] = -abs_dynamics(T_brk[j]);
+		else if(omega_w[j] > 0)
+			T_brk[j] =  abs_dynamics(T_brk[j]);
+	}
 
 
 	//body:
@@ -308,7 +314,10 @@ void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double
 	omega_e_dot =  omega_c_dot;
 
 	double T_emax;
-	if (omega_e < 3)
+
+	//A_ped = 10; //test
+  //  A_ped = T_global * 10;
+	if  ( (omega_e < 3) && (A_ped > 0))
 	{
 //		Teaped=10;
 //		T_emax = 10;
@@ -317,8 +326,6 @@ void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double
 
 	T_emax = CalcEngineMaxTorque(omega_e);  //3.30
 
-	A_ped = 10; //test
-  //  A_ped = T_global * 10;
 	double Teaped;
 	Teaped = A_ped*0.01*T_emax;
 
@@ -406,8 +413,7 @@ void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double
 		T_prop[1] = max_dynamics(Twr, 0);
 	}
 
-//	T_prop[0] = 50; //test
-//	T_prop[1] = 50;  //test
+
 
 
 	//derivative part:
@@ -475,10 +481,6 @@ void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double
 	}
 
 
-
-
-
-
 	////////test only, Feb. 12///
 //    //parameters:
 //    rw[0] = 0.347;
@@ -544,7 +546,6 @@ void dynamics::diff_equation(state_vehicle &state, input_vehicle &input,  double
 //<< "	T_roll[0]: " << T_roll[0]
 //<< "	T_roll[1]: " << T_roll[1] << std::endl;
 //
-
 
 }
 

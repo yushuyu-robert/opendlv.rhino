@@ -16,10 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "Body.h"
-#include "Powertrain.h"
-#include "Vehicle.h"
-#include "Wheels.h"
+ 
+#include "Vehicle.h" 
 #include "dynamics_vehicle.h"
 
 namespace opendlv {
